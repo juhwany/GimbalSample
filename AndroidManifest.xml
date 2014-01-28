@@ -27,10 +27,14 @@
     <!-- Not Currently Needed -->
     <DISABLED-uses-permission android:name="android.permission.GET_TASKS" />
     <DISABLED-uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <!-- THIS SHOULD BE REMOVED BEFORE SHIPPING - IT'S JUST FOR SDCARD LOGGING -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    
-
+    
+    <!--  For Using Google Map APIs -->
+    <uses-feature android:required="true" android:glEsVersion="0x00020000"/>
+    <permission android:name="com.tistory.everysw.gimbalsample.MAPS_RECEIVE" />    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -53,6 +57,7 @@
         </activity>
         <activity android:name="com.tistory.everysw.gimbalsample.ContentActivity" />
         <activity android:name="com.tistory.everysw.gimbalsample.EmptyContentActivity" />
+        <activity android:name="com.tistory.everysw.gimbalsample.GoogleMapActivity" />
         
         <service android:name="com.tistory.everysw.gimbalsample.CompanyService" android:exported="false">
             <intent-filter>
@@ -95,7 +100,10 @@
             </intent-filter>
         </receiver>      
         
-        <!-- Third party app integration with Gimbal BETA : END -->        
+        <!-- Third party app integration with Gimbal BETA : END -->
+        
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBSytti2eVA3_DT0nQAAo7lkAZMYuXEWTk"/>        
         
     </application>
 

@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ public class MallMartPresenter {
         acceptTermsButton = (Button) activity.findViewById(R.id.accept_terms_button);
 
         initializeSettingsButton();
+        initializeHiddenMap();
     }
 
     public void onContextConnectorEnableFailure(String message) {
@@ -179,6 +181,19 @@ public class MallMartPresenter {
                 activity.showUpdatePermissionsUI();
             }
         });
+    }
+    
+    private void initializeHiddenMap() {
+    	ImageView imageView = (ImageView)activity.findViewById(R.id.hiddenMap);
+    	imageView.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				//Intent companyServiceIntent = new Intent(this, CompanyService.class);
+				Intent intent = new Intent(activity, GoogleMapActivity.class);
+				activity.startActivity(intent);
+				
+			}
+		});
     }
 
     private void initializeEnableUserContextButton() {
