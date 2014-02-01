@@ -25,4 +25,6 @@
 	<color name="rsblue">#075c93</color>
 	<color name="medium_grey">#CACACA</color>
 	<color name="icon_divider">#4380a8</color>
+	<color name="map_polygon_stroke_color">#000000FF</color>
+	<color name="map_polygon_fill_color">#7F00FFFF</color>
 </resources>

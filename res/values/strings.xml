@@ -28,4 +28,6 @@
     <string name="not_now">Not now</string>
     <string name="location_disabled">Location Permission turned off by user</string>
     <string name="logo">logo</string>
+    <string name="privatePlace">Add new private place</string>
+    <string name="savePlace">Save Place</string>
 </resources>

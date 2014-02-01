@@ -178,9 +178,11 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f040006;
         public static final int common_signin_btn_light_text_focused=0x7f040007;
         public static final int common_signin_btn_light_text_pressed=0x7f040005;
-        public static final int common_signin_btn_text_dark=0x7f040011;
-        public static final int common_signin_btn_text_light=0x7f040012;
+        public static final int common_signin_btn_text_dark=0x7f040013;
+        public static final int common_signin_btn_text_light=0x7f040014;
         public static final int icon_divider=0x7f040010;
+        public static final int map_polygon_fill_color=0x7f040012;
+        public static final int map_polygon_stroke_color=0x7f040011;
         public static final int medium_grey=0x7f04000f;
         public static final int rsblue=0x7f04000e;
         public static final int text_color=0x7f04000d;
@@ -265,6 +267,7 @@ containing a value of this type.
         public static final int not_now_button=0x7f050007;
         public static final int place_event_text=0x7f050013;
         public static final int satellite=0x7f050002;
+        public static final int savePrivatePlace=0x7f050017;
         public static final int save_button=0x7f050006;
         public static final int settings_button=0x7f05000d;
         public static final int settings_layout=0x7f05000c;
@@ -275,6 +278,7 @@ containing a value of this type.
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
+        public static final int map_stroke_width=0x7f070001;
     }
     public static final class layout {
         public static final int content=0x7f030000;
@@ -385,7 +389,9 @@ containing a value of this type.
         public static final int location_disabled=0x7f060022;
         public static final int logo=0x7f060023;
         public static final int not_now=0x7f060021;
+        public static final int privatePlace=0x7f060024;
         public static final int save=0x7f060020;
+        public static final int savePlace=0x7f060025;
         public static final int unknown=0x7f06001e;
     }
     public static final class style {
