@@ -2,14 +2,18 @@ package com.tistory.everysw.gimbalsample;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -24,11 +28,13 @@ import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class GoogleMapActivity extends FragmentActivity 
 							implements OnMyLocationButtonClickListener,
@@ -43,6 +49,7 @@ public class GoogleMapActivity extends FragmentActivity
 	public static final float DEFAULT_LOCATION_SEOUL_LONGITUDE = 126.956764f;
 	public static final float MAP_DEFAULT_LOCATION_ZOOM = 11f;
 	public static final float MAP_CURRENT_LOCATION_ZOOM = 18f;
+	public static final int MIN_POLYLINE_POINTS = 2;
 	public static final int MIN_POLYGON_POINTS = 3;
 		
 	private GoogleMap googleMap;
@@ -56,15 +63,27 @@ public class GoogleMapActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
 		
-		googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+		googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 		
-		googleMap.setMyLocationEnabled(true);
-		googleMap.setOnMyLocationButtonClickListener(this);
-		googleMap.setOnMapClickListener(this);
-		googleMap.setOnMapLongClickListener(this);
-		googleMap.setOnMarkerClickListener(this);		
+		if(googleMap != null) {
+	        googleMap.setMyLocationEnabled(true);
+	        googleMap.setOnMyLocationButtonClickListener(this);
+	        googleMap.setOnMapClickListener(this);
+	        googleMap.setOnMapLongClickListener(this);
+	        googleMap.setOnMarkerClickListener(this);       
 
-		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, MAP_DEFAULT_LOCATION_ZOOM));
+	        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, MAP_DEFAULT_LOCATION_ZOOM));
+		    
+		}
+		
+		Button saveBtn = (Button)findViewById(R.id.savePrivatePlaceBtn);
+		saveBtn.setOnClickListener(new OnClickListener() {            
+            @Override
+            public void onClick(View v) {
+                EditText placeDescText = (EditText)findViewById(R.id.placeDescText);
+                placeDescText.setVisibility(View.VISIBLE);                
+            }
+        });
 		
 		//checkGPS();
 		
@@ -174,17 +193,43 @@ public class GoogleMapActivity extends FragmentActivity
     @Override
     public void onMapLongClick(LatLng point) {
         googleMap.addMarker(new MarkerOptions().position(point));
+
         arrSelectedPoints.add(point);
+        if(arrSelectedPoints.size() >= MIN_POLYLINE_POINTS) {
+            addPolyline();
+        }     
     }
 
     @Override
-    public boolean onMarkerClick(Marker arg0) {
+    public boolean onMarkerClick(Marker marker) {
 
         if(arrSelectedPoints.size() >= MIN_POLYGON_POINTS) {
             addPolygon();
+            
+            LatLng markerLocation = marker.getPosition();
+            LatLng lastPointLocation = arrSelectedPoints.get(arrSelectedPoints.size()-1);
+            
+            PolylineOptions options = new PolylineOptions();
+            options.width(getResources().getInteger(R.integer.map_stroke_width));
+            options.color(Color.BLUE);            
+            options.add(markerLocation, lastPointLocation);
+            
+            googleMap.addPolyline(options);            
+            
         }
         
         return false;
+    }
+    
+    private void addPolyline() {
+        
+        PolylineOptions options = new PolylineOptions();
+        options.width(getResources().getInteger(R.integer.map_stroke_width));
+        options.color(Color.BLUE);            
+        options.addAll(arrSelectedPoints);
+        
+        googleMap.addPolyline(options);            
+       
     }
     
     private void addPolygon() {
@@ -193,7 +238,7 @@ public class GoogleMapActivity extends FragmentActivity
         options.strokeWidth(getResources().getInteger(R.integer.map_stroke_width));
         options.strokeColor(getResources().getColor(R.color.map_polygon_stroke_color));
         options.fillColor(getResources().getColor(R.color.map_polygon_fill_color));
-        googleMap.addPolygon(options);
+        googleMap.addPolygon(options);        
     }
     
     private boolean isGoogleServiceAvailable() {

@@ -11,16 +11,26 @@
         android:textSize="20sp"
         android:gravity="center_vertical"
         android:text="@string/privatePlace"
-        />"
+        />
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:name="com.google.android.gms.maps.MapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         />
+    <EditText
+        android:id="@+id/placeDescText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:text="@string/savePlace"
+        android:inputType="text"
+        />    
     <Button
-        android:id="@+id/savePrivatePlace"
+        android:id="@+id/savePrivatePlaceBtn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

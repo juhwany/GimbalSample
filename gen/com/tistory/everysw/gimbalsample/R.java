@@ -265,9 +265,10 @@ containing a value of this type.
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int not_now_button=0x7f050007;
+        public static final int placeDescText=0x7f050017;
         public static final int place_event_text=0x7f050013;
         public static final int satellite=0x7f050002;
-        public static final int savePrivatePlace=0x7f050017;
+        public static final int savePrivatePlaceBtn=0x7f050018;
         public static final int save_button=0x7f050006;
         public static final int settings_button=0x7f05000d;
         public static final int settings_layout=0x7f05000c;
